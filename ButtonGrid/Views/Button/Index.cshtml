@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ButtonGrid.Models.ButtonModel>
+
+<style>
+    .game-button-image {
+        width: 70%;
+    }
+
+    .button-zone {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .line-break {
+        flex-basis: 100%;
+        height: 0;
+    }
+
+    .button-label {
+        font-size: 8px;
+        text-align: center;
+    }
+
+    .game-button {
+        width:130px;
+        text-align: center;
+        border: none;
+    }
+</style>
+
+@{
+    string[] imagenames = { "blueb.png", "greenb.png", "purpleb.png", "yellowb.png" };
+}
+
+
+<form>
+    <div class="button-zone">
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            // start new line every five elements
+            if (i % 5 == 0)
+            {
+                <div class="line-break"></div>
+            }
+            
+
+            <div class="oneButton" id=@i>
+                <button class="game-button" name="buttonNumber" value="@Model.ElementAt(i).Id" type="submit" asp-controller="button" asp-action="HandleButtonClick">
+                    <img class="game-button-image" src="~/img/@imagenames[Model.ElementAt(i).ButtonState]" />
+
+                    <div class="button-label">
+                        @Model.ElementAt(i).Id , @Model.ElementAt(i).ButtonState
+                    </div>
+                </button>
+            </div>
+        }
+
+
+    </div>
+</form>
+
+<div id="messageArea">
+    <p>Not all the buttons are the same color</p>
+</div>
+
+
+    
+
+    
+
